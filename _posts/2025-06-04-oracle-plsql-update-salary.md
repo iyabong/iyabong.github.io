@@ -1,5 +1,5 @@
 ---
-title: "오라클 PL/SQL - 2025.06.04"
+title: "오라클 PL/SQL - 급여 갱신 프로시저"
 date: 2025-06-04
 categories: [oracle, plsql]
 tags: [PL/SQL, 급여 갱신, Procedure]
