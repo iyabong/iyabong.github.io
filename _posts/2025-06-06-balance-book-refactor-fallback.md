@@ -1,6 +1,6 @@
 ---
 title: "Balance-Book 리팩토링"
-date: 2025-06-07
+date: 2025-06-06
 categories: [balance-book]
 tags: [프로젝트 리팩토링, fallback 처리, API 상태 점검, Dockerfile, .NET]
 ---
