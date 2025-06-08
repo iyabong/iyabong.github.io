@@ -36,24 +36,7 @@ Balance-Book 프로젝트에 `루틴 점검` 메뉴를 새로 추가하기 위�
 
 ---
 
-## 2️⃣ BALANCE_BOOK 사용자(스키마) 생성
-
-BALANCE_BOOK 프로젝트에 사용할 Oracle 사용자(스키마)를 생성
-
-```sql
--- 사용자 생성
-CREATE USER BALANCE_BOOK IDENTIFIED BY "********************";
-
--- 권한 부여
-GRANT CONNECT, RESOURCE TO BALANCE_BOOK;
-
--- 테이블 생성 가능한 공간 부여
-ALTER USER BALANCE_BOOK QUOTA UNLIMITED ON DATA;
-```
-
----
-
-## 3️⃣ 테이블 설계 및 생성
+## 2️⃣ 테이블 설계 및 생성
 
 ### 🎯 목적  
 - 평일/휴일 루틴 템플릿, 항목, 점검 기록을 관계형 구조로 저장  
@@ -155,7 +138,7 @@ CREATE TABLE TBL_ROUTINE_CHECK_ITEM (
 
 ### 🧠 백엔드 (C# .NET)
 
-- Oracle 연결 설정 (`BALANCE_BOOK` 사용자)
+- Oracle 연결 설정
 - 루틴 관련 API 구현  
   (`/routine/template`, `/routine/check`, `/routine/calendar-status`)
 - 루틴 상태 계산 로직 및 항목 체크 처리
