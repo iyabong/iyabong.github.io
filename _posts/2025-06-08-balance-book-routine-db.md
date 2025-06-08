@@ -1,5 +1,5 @@
 ---
-title: "Balance-Book 루틴 기능 개발기 (1) - Oracle DB 구성"
+title: "Balance-Book 개발기 (3) - 루틴 체크 기능 Oracle DB 구성"
 date: 2025-06-08
 categories: [balance-book]
 tags: [루틴 점검, Oracle Cloud, DB 설계, SQL Developer, 프로젝트 확장]
