@@ -34,7 +34,7 @@ tags: [SQL 실습, 부품 교체, 차량 정비 이력, Oracle]
 
 ---
 
-## ✅ 최종 SQL
+## ✅ 조회 SQL - 스칼라 서브쿼리 방식
 
 ```sql
 SELECT 
@@ -83,11 +83,75 @@ ORDER BY
 
 ---
 
-## 📌 주요 포인트
+## 🛠️ (보완) 인라인뷰 + 윈도우 함수 방식
 
-- **스칼라 서브쿼리**를 통해 교체 이력 기준 전후 점검 시간 조회
-- **Oracle 전통 조인** 방식 사용 (`FROM A, B WHERE A.x = B.y`)
-- 날짜는 `TO_CHAR()`로 가독성 좋게 포맷
+스칼라 서브쿼리는 행마다 반복적으로 정비 이력 테이블을 조회하기 때문에,
+정비 이력의 데이터 양이 많아질수록 성능 저하가 발생할 수 있습니다.
+
+이를 개선하기 위해 `ROW_NUMBER()` 윈도우 함수와 인라인뷰를 활용해
+**각 교체이력 건당 정확히 1건의 직전/직후 정비 이력을 사전에 추출**하고 조인하는 방식으로 변경하여 대량 데이터 조회시의 성능을 고려하여 보완하였습니다.
+
+```sql
+SELECT 
+  A.ID AS "부품교체이력ID",
+  A.CAR_ID AS "차ID",
+  C.NAME AS "차명",
+  A.PART_ID AS "부품ID", 
+  P.NAME AS "부품명",
+  A.UNMOUNT_PART_SN AS "탈거부품SN", 
+  A.MOUNT_PART_SN AS "장착부품SN", 
+  A.REMARK AS "비고",
+  TO_CHAR(A.CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS "(부품교체 완료되어) 이력생성시각",
+  TO_CHAR(UNMOUNT.UNMOUNT_TIME, 'YYYY-MM-DD HH24:MI:SS') AS "(기존부품)탈거시각" ,
+  TO_CHAR(MOUNT.MOUNT_TIME, 'YYYY-MM-DD HH24:MI:SS') AS "(새부품으로 교체)장착시각",
+  TO_CHAR(PREV.END_TIME, 'YYYY-MM-DD HH24:MI:SS') AS "(부품 교체 전) 차량작업 완료시각",
+  TO_CHAR(NEXT.START_TIME, 'YYYY-MM-DD HH24:MI:SS') AS "(부품 교체 후) 차량작업 시작시각"
+FROM 
+  CAR_PART_CHANGE_HIST A,
+  CAR C,
+  PART P,
+  CAR_PART_CHANGE_DETAIL UNMOUNT,
+  CAR_PART_CHANGE_DETAIL MOUNT,
+  (
+    SELECT CHANGE_ID, CAR_ID, END_TIME, CREATED_TIME
+    FROM (
+      SELECT PH.ID AS CHANGE_ID,
+             MH.CAR_ID,
+             MH.END_TIME,
+             PH.CREATED_TIME,
+             ROW_NUMBER() OVER(PARTITION BY PH.ID ORDER BY MH.END_TIME DESC) AS RN
+      FROM CAR_MAINTAIN_HIST MH,
+           CAR_PART_CHANGE_HIST PH
+      WHERE MH.CAR_ID = PH.CAR_ID
+        AND MH.END_TIME < PH.CREATED_TIME
+    )
+    WHERE RN = 1
+  ) PREV,
+  (
+    SELECT CHANGE_ID, CAR_ID, START_TIME, CREATED_TIME
+    FROM (
+      SELECT PH.ID AS CHANGE_ID,
+             MH.CAR_ID,
+             MH.START_TIME,
+             PH.CREATED_TIME,
+             ROW_NUMBER() OVER(PARTITION BY PH.ID ORDER BY MH.START_TIME ASC) AS RN
+      FROM CAR_MAINTAIN_HIST MH,
+           CAR_PART_CHANGE_HIST PH
+      WHERE MH.CAR_ID = PH.CAR_ID
+        AND MH.START_TIME > PH.CREATED_TIME
+    )
+    WHERE RN = 1
+  ) NEXT
+WHERE 
+  A.CAR_ID = C.ID
+  AND A.PART_ID = P.ID
+  AND A.UNMOUNT_PART_SN = UNMOUNT.PART_SN
+  AND A.MOUNT_PART_SN = MOUNT.PART_SN
+  AND A.ID = PREV.CHANGE_ID(+)
+  AND A.ID = NEXT.CHANGE_ID(+)
+ORDER BY 
+  A.CREATED_TIME;
+```
 
 ---
 
