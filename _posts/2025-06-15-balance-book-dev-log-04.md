@@ -24,13 +24,11 @@ Balance-Book 프로젝트에서 Oracle Autonomous Database(ADB)에 .NET 백엔�
 
 
 - `OCI CLI` 설치
-- `oci setup config` 실행하여 `~/.oci/config` 생성
-https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm 
-- Tenancy OCID, User OCID, Region, API Key 입력
-https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm 
-- 공개키(`oci_api_key_public.pem`)를 콘솔 > 사용자 > API Key에 등록
-
-https://docs.oracle.com/en-us/iaas/Content/Identity/access/to_upload_an_API_signing_key.htm
+- `oci setup config` 실행하여 `~/.oci/config` 생성  
+  [https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)  
+  [https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm) 
+- 공개키(`oci_api_key_public.pem`)를 콘솔 > 사용자 > API Key에 등록  
+  [https://docs.oracle.com/en-us/iaas/Content/Identity/access/to_upload_an_API_signing_key.htm](https://docs.oracle.com/en-us/iaas/Content/Identity/access/to_upload_an_API_signing_key.htm)
 ```bash
 # 예시 위치
 C:\Users\[사용자명]\.oci\
@@ -45,17 +43,16 @@ C:\Users\[사용자명]\.oci\
 
 - DB > Database connection > Wallet 다운로드
 - `C:\Users\[사용자명]\Oracle\network\admin\[데이터베이스명]` 폴더에 압축 해제
-- 포함 파일: `tnsnames.ora`, `sqlnet.ora`, `cwallet.sso` 등
-https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/connect-download-wallet.html#GUID-B06202D2-0597-41AA-9481-3B174F75D4B1
+- 포함 파일: `tnsnames.ora`, `sqlnet.ora`, `cwallet.sso` 등  
+  [https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/connect-download-wallet.html#GUID-B06202D2-0597-41AA-9481-3B174F75D4B1](https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/connect-download-wallet.html#GUID-B06202D2-0597-41AA-9481-3B174F75D4B1)
 ---
 
 ### 3️⃣ VS Code 환경 구성
 
 - Oracle Cloud VS Code 확장 설치
 - `.oci/config` 자동 인식
-- Autonomous Database 확인 및 SQL Worksheet 접속 가능
-
-https://www.oracle.com/database/technologies/appdev/dotnet/adbdotnetquickstarts.html#second-option-tab
+- Autonomous Database 확인 및 SQL Worksheet 접속 가능  
+  [https://www.oracle.com/database/technologies/appdev/dotnet/adbdotnetquickstarts.html#second-option-tab](https://www.oracle.com/database/technologies/appdev/dotnet/adbdotnetquickstarts.html#second-option-tab)
 ---
 
 ### 4️⃣ .NET 백엔드 연결 설정
