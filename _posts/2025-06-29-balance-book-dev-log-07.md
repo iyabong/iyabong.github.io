@@ -79,7 +79,7 @@ oci db autonomous-database update \
 
 ## 🧩 참고: 기존 연결 흐름
 
-> 자세한 연결 과정은 [개발기 (6)](/posts/2025-06-24-balance-book-dev-log-06/) 참고
+> 자세한 연결 과정은 [개발기 (6)](./2025-06-24-balance-book-dev-log-06/) 참고
 
 ---
 
