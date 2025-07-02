@@ -1,7 +1,7 @@
 ---
 title: "Oracle SQL 실습 (1) - 부품 교체 이력 및 정비 이력 조회"
 date: 2025-06-14
-categories: [oracle, sql]
+categories: [Oracle, SQL]
 tags: [SQL 실습, 부품 교체, 차량 정비 이력, Oracle]
 ---
 

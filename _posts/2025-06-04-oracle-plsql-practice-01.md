@@ -1,12 +1,12 @@
 ---
 title: "오라클 PL/SQL - 급여 갱신 프로시저"
 date: 2025-06-04
-categories: [oracle, plsql]
-tags: [PL/SQL, 급여 갱신, Procedure]
+categories: [Oracle, PL/SQL]
+tags: [PL/SQL 실습, 급여 갱신, Procedure]
 ---
 
 ## 프로시저 개요
-지정 부서 사원들의 급여를 조정하는 프로시저
+지정 부서 사원들의 급여를 조정하는 프로시저 생성 및 실행 실습
 
 ---
 
