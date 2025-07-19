@@ -1,7 +1,7 @@
 ---
 title: "Balance-Book 개발기 (1) - 프로젝트 개요"
 date: 2025-05-24
-categories: [balance-book]
+categories: [Balance-Book]
 tags: [프로젝트 소개, 주요 기능, 아키텍처 개요, 기술 스택, 개발 환경, 소스 관리, 배포, 디렉터리 구조]
 ---
 

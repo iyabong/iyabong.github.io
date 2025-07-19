@@ -1,7 +1,7 @@
 ---
 title: "Balance-Book 개발기 (4) - .NET 백엔드와 Oracle ADB 연결 설정"
 date: 2025-06-15
-categories: [balance-book]
+categories: [Balance-Book]
 tags: [Oracle Cloud, Oracle Autonomous Database, 백엔드 연결, ODP.NET, EF Core, VS Code, Wallet]
 ---
 

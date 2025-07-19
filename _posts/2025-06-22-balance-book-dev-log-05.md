@@ -1,7 +1,7 @@
 ---
 title: "Balance-Book 개발기 (5) - 루틴 점검 백엔드 API 개발"
 date: 2025-06-22
-categories: [balance-book]
+categories: [Balance-Book]
 tags: [루틴 점검, 백엔드, Routine, C#, Oracle, EF Core, API]
 ---
 

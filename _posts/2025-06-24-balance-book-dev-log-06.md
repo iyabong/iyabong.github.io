@@ -1,7 +1,7 @@
 ---
 title: "Balance-Book 개발기 (6) - 백엔드 배포환경에 ADB 연결"
 date: 2025-06-24
-categories: [balance-book]
+categories: [Balance-Book]
 tags: [Oracle, OCI, Railway, Render, Docker, 백엔드 배포, 환경변수]
 ---
 

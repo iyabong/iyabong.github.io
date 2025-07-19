@@ -1,7 +1,7 @@
 ---
 title: "Balance-Book 개발기 (7) - Oracle ADB ACL 구성 전략"
 date: 2025-06-29
-categories: [balance-book]
+categories: [Balance-Book]
 tags: [Oracle, ACL, IP, CIDR, Railway, Render, 클라우드]
 ---
 

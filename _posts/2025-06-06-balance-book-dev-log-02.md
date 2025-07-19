@@ -1,7 +1,7 @@
 ---
 title: "Balance-Book 개발기 (2) - 프로젝트명 변경 및 fallback 적용"
 date: 2025-06-06
-categories: [balance-book]
+categories: [Balance-Book]
 tags: [프로젝트 리팩토링, fallback 처리, API 상태 점검, Dockerfile, .NET]
 ---
 
