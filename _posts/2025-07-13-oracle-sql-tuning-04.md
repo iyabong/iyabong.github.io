@@ -48,8 +48,8 @@ SQL 성능 분석 및 튜닝 실습을 진행합니다.
   - ID (PK)
   - CREATED_TIME
   - WORKER_ID
-  - DETACH_PART_RECORD_ID
   - ATTACH_PART_RECORD_ID
+  - DETACH_PART_RECORD_ID  
 
 📌 BIKE_LOG
   - ID (PK)
