@@ -72,4 +72,4 @@ VLOOKUP, IF/IFS 함수는 실무에서 정말 자주 쓰이며,
 
 ## 📂 관련 실습 파일
 
-- 📎 [실습파일 다운로드](../assets/files/2025-07-30-excel-practice-if-vlookup_LaptopList.xlsx)
+- 📎 [실습파일 다운로드](/assets/files/2025-07-30-excel-practice-if-vlookup_LaptopList.xlsx)
