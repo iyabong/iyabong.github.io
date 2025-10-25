@@ -79,5 +79,5 @@ tags: [Nexacro17, Spring MVC, Eclipse, Gitignore, 프로젝트 세팅, Tomcat]
 
 ## 🔗 이전 글
 
-- [Nexacro + Spring 연동 실습기 (1)](2025-08-03-ns-practice-log-01.md)
-- [Nexacro + Spring 연동 실습기 (2)](2025-08-03-ns-practice-log-02.md)
+- [Nexacro + Spring 연동 실습기 (1) - 프로젝트 구성 및 Git 업로드](https://iyabong.github.io/posts/ns-practice-log-01/)
+- [Nexacro + Spring 연동 실습기 (2) - 파일 다운로드 구현 및 Multipart 관련 에러 방지](https://iyabong.github.io/posts/ns-practice-log-02/)
