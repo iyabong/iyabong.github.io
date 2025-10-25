@@ -24,10 +24,10 @@ Balance-Book 프로젝트에 `루틴 점검` 메뉴를 새로 추가하기 위�
 
 3. **DB Tool 접속 설정**
    - (Access Control List 화면) 접속 기기 IP 추가
-![접속 기기 IP 추가](../assets/img/balance-book/oci_network_acl.png)
+![접속 기기 IP 추가](/assets/img/balance-book/oci_network_acl.png)
 
    - (Database connection 화면) Wallet 파일 다운로드
-![Wallet 파일 다운로드](../assets/img/balance-book/oci_download_wallet.png)
+![Wallet 파일 다운로드](/assets/img/balance-book/oci_download_wallet.png)
 
 4. **SQL Developer 연결 설정**  
    - (SQL Developer) Wallet 설정을 통해 접속

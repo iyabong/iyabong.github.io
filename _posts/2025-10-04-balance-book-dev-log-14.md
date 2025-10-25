@@ -110,11 +110,11 @@ export default Home;
 -   **개발/프리뷰(Dev/Preview)**\
     ✅ `/wallet_dev.svg`\
     ✅ `/favicon_wallet_dev.ico`
-    ![dev_logo.png](../assets/img/balance-book/dev_logo.png)
+    ![dev_logo.png](/assets/img/balance-book/dev_logo.png)
 
 
 -   **운영(Production)**\
     ✅ `/wallet.svg`\
     ✅ `/favicon_wallet.ico`
-    ![prod_logo.png](../assets/img/balance-book/prod_logo.png)
+    ![prod_logo.png](/assets/img/balance-book/prod_logo.png)
 

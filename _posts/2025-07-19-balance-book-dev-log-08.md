@@ -100,7 +100,7 @@ pip install fastapi uvicorn requests
   "appName": "YouTube"
 }
 ```
-![파라미터 추출 테스트](../assets/img/balance-book/2025-07-19-balance-book-dev-log-08_ollama_extract.png)
+![파라미터 추출 테스트](/assets/img/balance-book/2025-07-19-balance-book-dev-log-08_ollama_extract.png)
 
 ---
 

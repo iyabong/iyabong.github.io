@@ -83,7 +83,7 @@ WHERE SQL_TEXT LIKE '%ID:empDeptJoin%'
 ORDER BY LAST_ACTIVE_TIME DESC
 ```
 - 실행 직후에 커서 캐시에서 조회해야만 SQL_ID를 확인할 수 있음
-![SQL_ID 조회](../assets/img/oracle-sql-tuning/select_sqlid_sqltext_from_vsql.png)
+![SQL_ID 조회](/assets/img/oracle-sql-tuning/select_sqlid_sqltext_from_vsql.png)
 
 ---
 
