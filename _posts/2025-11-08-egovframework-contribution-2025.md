@@ -1,5 +1,4 @@
 ---
----
 title: "2025년 전자정부 표준프레임워크 컨트리뷰션 참가기"
 date: 2025-11-08
 categories: [eGovFramework,contribution]
