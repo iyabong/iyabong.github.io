@@ -1,6 +1,6 @@
 ---
 title: "Oracle 실습 — MODEL 절"
-date: 2-25-12-06
+date: 2025-12-06
 categories: [Oracle, SQL]
 tags: [Oracle, SQL, MODEL]
 ---
