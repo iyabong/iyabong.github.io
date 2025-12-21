@@ -26,7 +26,7 @@ order: 4
 | 1    | **Metal 가공 시스템 개발/운영**   |     2025.05 ~     | 삼성전자     |  **APL**  | Nexacro, C#, JAVA, JSP / ORACLE / Jenkins / **Ollama**             |
 | 2    | **MES 개발/운영**                 | 2024.01 ~ 2025.04 | 삼성전자     | 개발/운영 | JAVA / Oracle / Nexacro                                            |
 | 3    | **배터리 생산 시스템 구축**       | 2023.03 ~ 2023.09 | SK ON        |   개발    | JAVA, Spring Boot / Oracle / **TIBCO Rendezvous®**                 |
-| 4    | **생산기술 연구 Portal 운영**     | 2021.04 ~ 20243.0 | 삼성전자     |  **PL**   | JAVA / Oracle / Nexacro                                            |
+| 4    | **생산기술 연구 Portal 운영**     | 2021.04 ~ 2024.01 | 삼성전자     |  **PL**   | JAVA / Oracle / Nexacro                                            |
 | 5    | **플랜트 배관 물량관리 프로그램** | 2020.09 ~ 2021.03 | 한화건설     |   개발    | JAVA, JSP, Spring Boot / Oracle / exBuilder6, MyBatis, GIT         |
 | 6    | **마케팅 성과측정시스템 개발**    | 2020.03 ~ 2020.08 | 아모레퍼시픽 |   개발    | JAVA, JSP, Spring, Vue.js, AWS / PostgreSQL / jQuery, MyBatis, GIT |
 | 7    | **리조트 예약시스템 개선**        | 2019.12 ~ 2020.02 | 삼성물산     |   개발    | JAVA, JSP, Spring / Oracle / MyBatis, Jira, SVN, GIT               |
