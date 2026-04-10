@@ -1,5 +1,5 @@
 ---
-title: SQLP(01) 실습 세팅
+title: SQLP 실습 세팅
 date: 2026-04-08
 categories: [SQLP]
 tags: [SQLP, 세팅, Oracle Cloud, DBeaver]
