@@ -2,7 +2,7 @@
 title: 친절한 SQL 튜닝
 date: 2026-04-10
 categories: [SQLP]
-tags: [SQLP, 친절한 SQL 튜닝]
+tags: [SQLP, 친절한 SQL 튜닝, SQL 파싱과 최적화]
 ---
 
 ## 친절한 SQL 튜닝
