@@ -50,14 +50,12 @@ SELECT SEGMENT_NAME, PARTITION_NAME, SEGMENT_TYPE, BYTES/1024 AS KB
 FROM USER_SEGMENTS
 WHERE SEGMENT_NAME IN ('T_NORMAL', 'T_PARTITION')
 ORDER BY SEGMENT_NAME, PARTITION_NAME;
-);
 
--- LOB 컬럼 포함 테이블
-CREATE TABLE t_lob (
-    id      NUMBER,
-    content CLOB,
-    img     BLOB
-);
+SEGMENT_NAME|PARTITION_NAME|SEGMENT_TYPE   |KB  |
+------------+--------------+---------------+----+
+T_NORMAL    |              |TABLE          |  64|
+T_PARTITION |P2025         |TABLE PARTITION|8192|
+T_PARTITION |P2026         |TABLE PARTITION|8192|
 ```
 
 ### 4. 익스텐트 조회
