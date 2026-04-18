@@ -170,7 +170,7 @@ GENDER + NAME  → 1건 (0.001%)
 ※ 두 컬럼 조합으로 선택도가 급격히 높아지면 옵티마이저가 인덱스 선택
 
 
-### 3. PK(UNIQUE 인덱스) 실습
+### 3. PK(UNIQUE 인덱스)
 ```sql
 -- PK 생성 (UNIQUE 인덱스 자동 생성)
 ALTER TABLE CUSTOMER ADD CONSTRAINT PK_CUSTOMER PRIMARY KEY (CUST_ID);
@@ -184,9 +184,10 @@ INDEX_NAME          |INDEX_TYPE|UNIQUENESS|
 --------------------+----------+----------+
 IDX_CUST_GENDER_NAME|NORMAL    |NONUNIQUE |
 PK_CUSTOMER         |NORMAL    |UNIQUE    |
+```
 
-
--- 1. UNIQUE SCAN (단건 = 조건)
+### 3-1. UNIQUE SCAN (단건 = 조건)
+```sql
 EXPLAIN PLAN FOR
 SELECT * FROM CUSTOMER WHERE CUST_ID = 500;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
@@ -207,10 +208,11 @@ Predicate Information (identified by operation id):                             
 ---------------------------------------------------                                        |
                                                                                            |
    2 - access("CUST_ID"=500)                                                               |
+```
 
-
--- 2. FULL SCAN (UNIQUE 인덱스인데 넓은 범위 조건)
--- 95%의 데이터를 읽어야 해서 FULL SCAN
+### 3-2. FULL SCAN (UNIQUE 인덱스인데 넓은 범위 조건)
+ → 95%의 데이터를 읽어야 해서 FULL SCAN
+```sql
 EXPLAIN PLAN FOR
 SELECT * FROM CUSTOMER WHERE CUST_ID > 500;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
@@ -230,9 +232,10 @@ Predicate Information (identified by operation id):                           |
 ---------------------------------------------------                           |
                                                                               |
    1 - filter("CUST_ID">500)                                                  |
+```
 
-
--- 3. INDEX RANGE SCAN (UNIQUE 인덱스인데 좁은 범위 조건)
+### 3-3. INDEX RANGE SCAN (UNIQUE 인덱스인데 좁은 범위 조건)
+```sql
 EXPLAIN PLAN FOR
 SELECT * FROM CUSTOMER WHERE CUST_ID > 9900;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
