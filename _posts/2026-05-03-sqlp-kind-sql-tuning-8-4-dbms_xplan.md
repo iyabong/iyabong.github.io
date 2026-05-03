@@ -94,6 +94,7 @@ Predicate Information (identified by operation id):                             
 - A-Rows: 실제 행 수
 - A-Time: 실제 수행 시간
 - Buffers: 읽은 블록 수(논리적I/O)
+
 ```sql
 -- 1. 실행계획 수집
 SELECT /*+ INDEX(E EMP_BIG_X01) GATHER_PLAN_STATISTICS */ *
