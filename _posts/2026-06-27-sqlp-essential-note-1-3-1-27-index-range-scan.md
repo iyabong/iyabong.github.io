@@ -1,5 +1,5 @@
 ---
-title: 국가공인 SQLP 자격검정 핵심노트 1
+title: 국가공인 SQLP 자격검정 핵심노트 1 - 27. Index Range Scan 유도(1)
 date: 2026-06-27
 categories: [SQLP]
 tags: [SQLP, 인덱스 튜닝, 인덱스 기본 원리, Index Range Scan]
@@ -9,7 +9,7 @@ tags: [SQLP, 인덱스 튜닝, 인덱스 기본 원리, Index Range Scan]
 
 - 인덱스 튜닝
   - 인덱스 기본 원리
-    - ** 27. Index Range Scan 유도**
+    - **27. Index Range Scan 유도(1)**
 
 ```sql
 -- 실행계획 수집
