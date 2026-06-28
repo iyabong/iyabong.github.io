@@ -1,7 +1,7 @@
 ---
 title: 친절한 SQL 튜닝 - 8.4 DBMS_XPLAN 패키지
 date: 2026-05-03
-categories: [SQLP]
+categories: [SQLP, 친절한 SQL 튜닝]
 tags: [SQLP, 친절한 SQL 튜닝, 부록, SQL 분석 도구, 실행계획]
 ---
 

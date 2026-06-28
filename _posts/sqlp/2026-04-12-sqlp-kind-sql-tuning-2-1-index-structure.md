@@ -1,7 +1,7 @@
 ---
 title: 친절한 SQL 튜닝 - 2.1 인덱스 구조 및 탐색
 date: 2026-04-12
-categories: [SQLP]
+categories: [SQLP, 친절한 SQL 튜닝]
 tags: [SQLP, 친절한 SQL 튜닝, 인덱스 구조 및 탐색]
 ---
 

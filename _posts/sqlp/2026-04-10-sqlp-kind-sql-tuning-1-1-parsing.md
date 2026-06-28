@@ -1,7 +1,7 @@
 ---
 title: 친절한 SQL 튜닝 - 1.1 SQL 파싱과 최적화
 date: 2026-04-10
-categories: [SQLP]
+categories: [SQLP, 친절한 SQL 튜닝]
 tags: [SQLP, 친절한 SQL 튜닝, SQL 파싱과 최적화]
 ---
 

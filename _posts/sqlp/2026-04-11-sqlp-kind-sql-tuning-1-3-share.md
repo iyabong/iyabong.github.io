@@ -1,7 +1,7 @@
 ---
 title: 친절한 SQL 튜닝 - 1.3 SQL 공유 및 재사용
 date: 2026-04-11
-categories: [SQLP]
+categories: [SQLP, 친절한 SQL 튜닝]
 tags: [SQLP, 친절한 SQL 튜닝, SQL 공유 및 재사용]
 ---
 

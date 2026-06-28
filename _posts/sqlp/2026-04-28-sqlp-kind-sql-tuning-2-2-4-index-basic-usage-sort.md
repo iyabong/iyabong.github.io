@@ -1,7 +1,7 @@
 ---
 title: 친절한 SQL 튜닝 - 2.2.4 인덱스를 이용한 소트 연산 생략
 date: 2026-04-28
-categories: [SQLP]
+categories: [SQLP, 친절한 SQL 튜닝]
 tags: [SQLP, 친절한 SQL 튜닝, 인덱스, INDEX, SORT]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 친절한 SQL 튜닝 - 2.2.3 더 중요한 인덱스 사용 조건
 date: 2026-04-19
-categories: [SQLP]
+categories: [SQLP, 친절한 SQL 튜닝]
 tags: [SQLP, 친절한 SQL 튜닝, 인덱스, INDEX]
 ---
 
