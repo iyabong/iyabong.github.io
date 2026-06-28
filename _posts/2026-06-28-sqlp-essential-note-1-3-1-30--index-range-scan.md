@@ -87,6 +87,7 @@ ORDER BY TRD_DT;
 1. PK 선두컬럼을 가공하는 대신, IN 조건으로 변경
 2. 옵티마이저 HINT에 PK INDEX 사용 명시
   → PK INDEX RANGE SCAN 및 INLIST ITERATOR 유도 성공
+
 ```sql
 -- startDt: '20240101'
 -- endDt  : '20240105'
@@ -118,6 +119,7 @@ ORDER BY TRD_DT;
 1. UNION ALL 명시적으로 구현
 2. UNION ALL 후에, GROUP BY와 ORDER BY 처리
   → PK INDEX RANGE SCAN 및 UNION-ALL 유도 성공
+
 ```sql
 -- startDt: '20240101'
 -- endDt  : '20240105'
