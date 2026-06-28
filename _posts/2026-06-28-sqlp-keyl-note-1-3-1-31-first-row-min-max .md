@@ -2,7 +2,7 @@
 title: 국가공인 SQLP 자격검정 핵심노트 1 - 31. FIRST ROW(MIN/MAX)
 date: 2026-06-28
 categories: [SQLP]
-tags: [SQLP, 인덱스 튜닝, 인덱스 기본 원리, Index Range Scan]
+tags: [SQLP, 인덱스 튜닝, 인덱스 기본 원리, FIRST ROW(MIN/MAX)]
 ---
 
 [2024 국가공인 SQLP 자격검정 핵심노트 1](https://product.kyobobook.co.kr/detail/S000213913597)
