@@ -187,6 +187,7 @@ Predicate Information (identified by operation id):
 1. 인라인 뷰를 한개로 합치고, CASE로 집계 분기
  → 인덱스 스캔~테이블 액세스 과정을 한 번만 수행
 2. 추가한 INDEX 사용 유도
+
 ```sql
 SELECT /*+ GATHER_PLAN_STATISTICS */
        (G_기본이체금액 + G_정산이자) - (S_기본이체금액 + S_정산이자) AS 차액
