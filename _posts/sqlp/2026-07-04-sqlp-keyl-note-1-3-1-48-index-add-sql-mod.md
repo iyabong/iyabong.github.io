@@ -12,7 +12,7 @@ tags: [SQLP, 인덱스 튜닝, 인덱스 기본 원리, INDEX 추가, SQL 변경
     - **48. 인덱스 추가, SQL 변경**
 
 #### 실습 준비
-```sql
+```plsql
 -- 쿼리 수행데이터 수집
 /*+ GATHER_PLAN_STATISTICS */
 
