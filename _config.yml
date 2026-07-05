@@ -167,11 +167,9 @@ kramdown:
     # default_lang: console
     span:
       line_numbers: false
-      invalid_span: ignore # 💡 코드 블록 내부의 잘못된 문자(한글) 에러 무시
     block:
       line_numbers: true
       start_line: 1
-      invalid_span: ignore # 💡 코드 블록 내부의 잘못된 문자(한글) 에러 무시
 
 collections:
   tabs:
