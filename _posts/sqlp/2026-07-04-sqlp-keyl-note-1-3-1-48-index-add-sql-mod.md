@@ -1,6 +1,6 @@
 ---
 title: 국가공인 SQLP 자격검정 핵심노트 1 - 48. INDEX 추가, SQL 변경
-date: 2026-07-04
+date: 2026-06-28
 categories: [SQLP, 국가공인 SQLP 자격검정 핵심노트 1]
 tags: [SQLP, 인덱스 튜닝, 인덱스 기본 원리, INDEX 추가, SQL 변경]
 ---
