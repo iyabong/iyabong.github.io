@@ -1,7 +1,7 @@
 ---
 title: "Forter — Building an Android APK Without a Laptop"
-date: 2026-09-12 21:30:00 +0900
-categories: [Forter, Dev Log]
+date: 2026-09-12
+categories: [Forter]
 tags: [android, github-actions, ci, gradle, mobile]
 ---
 
