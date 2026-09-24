@@ -2,7 +2,7 @@
 title: "Forter — Starting Over in Android Studio"
 date: 2026-09-24
 categories: [Forter]
-tags: [android, android-studio, git, gradle, versioning]
+tags: [android, android-studio, git, gradle, versioning, bluetooth, permissions]
 ---
 
 ## Why start over
@@ -134,41 +134,18 @@ buildFeatures {
 - `buildConfig = true` generates a `BuildConfig` class at build time. Recent AGP versions
   turn it off by default for build speed.
 
-Generated class:
+In `MainActivity.kt`, the greeting now reads the version:
 
 ```kotlin
-object BuildConfig {
-    const val DEBUG = true
-    const val APPLICATION_ID = "com.iyabong.forter"
-    const val BUILD_TYPE = "debug"
-    const val VERSION_CODE = 1
-    const val VERSION_NAME = "0.1.0"
-}
-```
-
-After sync it appears under `java (generated)` in the project tree.
-
-In `MainActivity.kt`:
-
-```kotlin
-Greeting(
-    name = "Forter",
-    modifier = Modifier.padding(innerPadding)
-)
-
-// ...
-
 Text(
-    text = "Hello $name!\n${BuildConfig.VERSION_NAME}",
+    text = "Hello $name!\nv${BuildConfig.VERSION_NAME}",
     modifier = modifier
 )
 ```
 
-The phone now shows:
-
 ```text
 Hello Forter!
-0.1.0
+v0.1.0
 ```
 
 The version is set in one place and read from there. In the car, the screen answers
@@ -226,18 +203,266 @@ Result:
 `45f505a..f57c5bd` is a fast-forward. The prototype history is still on `dev`, directly
 below the new start.
 
-### Two warnings that don't matter
+`LF will be replaced by CRLF the next time Git touches it` appeared on `git add`. Git for
+Windows stores LF in the repository and checks files out as CRLF. It is a notice, not an error.
 
-`LF will be replaced by CRLF the next time Git touches it` — Git for Windows stores LF in the
-repository and checks files out as CRLF. It is a notice, not an error.
+## Version from Git
 
-In the Android Studio terminal, PowerShell showed command arguments on a black background.
-That is PSReadLine's highlighting clashing with a light theme. Switching the terminal to Git
-Bash (Settings → Tools → Terminal → Shell path) removed it.
+A hand-edited `versionCode` gets forgotten. Two ways to automate it:
+
+- **Per build** — every ▶ bumps the number. It grows meaninglessly (dozens of builds a day),
+  and the configuration changes on every build, so Gradle's caches stop helping.
+- **Per commit** — the same code always carries the same number. The screen identifies the
+  exact source.
+
+Per commit, then. At the top of the module `build.gradle.kts`, above `android { }`:
+
+```kotlin
+val gitCommitCount = providers.exec {
+    commandLine("git", "rev-list", "--count", "HEAD")
+}.standardOutput.asText.get().trim().toInt()
+
+val gitHash = providers.exec {
+    commandLine("git", "rev-parse", "--short", "HEAD")
+}.standardOutput.asText.get().trim()
+```
+
+```kotlin
+defaultConfig {
+    versionCode = gitCommitCount
+    versionName = "0.1.0-$gitHash"
+}
+```
+
+This is Kotlin, not Groovy — the file is a Kotlin script (`.kts`). The Groovy equivalent
+would use `def` and single quotes.
+
+- `providers.exec { }` runs an external command. It is configuration-cache compatible, unlike
+  calling a process directly.
+- `commandLine(...)` is the command, exactly as typed in a terminal.
+- `.get()` is where it actually runs. A Gradle `Provider` holds a value to be computed later.
+- `.trim()` drops the trailing newline.
+
+Gradle has to find `git` on the `PATH`. Git for Windows adds it by default.
+
+The two commands on their own:
+
+```bash
+$ git rev-parse --short HEAD
+f57c5bd
+
+$ git rev-list --count HEAD
+15
+```
+
+- `rev-parse` turns any revision name — `HEAD`, `dev`, `v0.1.0`, `HEAD~1` — into a commit
+  hash. `--short` abbreviates it to seven characters.
+- `rev-list` walks back from `HEAD` through parent commits. `--count` prints only the number.
+  15 is the prototype's 14 commits plus the fresh start.
+
+The phone showed `v0.1.0-f57c5bd`. One catch: uncommitted changes still carry the previous
+commit's hash. After committing this change, the next build showed `v0.1.0-7a6e0e9`.
+
+`0.1.0` stays manual. Deciding that a feature is complete enough for `0.2.0` is a human call.
+
+## Generated sources
+
+After sync, `BuildConfig` appears under `java (generated)`:
+
+```java
+public final class BuildConfig {
+  public static final boolean DEBUG = Boolean.parseBoolean("true");
+  public static final String APPLICATION_ID = "com.iyabong.forter";
+  public static final String BUILD_TYPE = "debug";
+  public static final int VERSION_CODE = 1;
+  public static final String VERSION_NAME = "0.1.0";
+}
+```
+
+Android Studio warns *Generated source files should not be edited*. The real path is
+`app/build/generated/source/buildConfig/debug/...` — inside `build/`, regenerated on every
+build, never committed. Change the values in `build.gradle.kts` instead.
+
+It is Java because AGP generates Java. Kotlin reads it directly.
+
+## Project layout
+
+The **Android** view groups files by role rather than showing the disk layout:
+
+```text
+app/
+├─ manifests/AndroidManifest.xml   permissions, activities, services
+├─ kotlin+java/
+│   ├─ com.iyabong.forter/         source
+│   │   ├─ ui.theme/               Color.kt, Type.kt, Theme.kt
+│   │   └─ MainActivity.kt
+│   ├─ com.iyabong.forter          (androidTest) runs on the device
+│   └─ com.iyabong.forter          (test) runs on the JVM
+├─ java (generated)                BuildConfig — do not edit
+└─ res/                            icons, strings, XML themes
+
+Gradle Scripts/
+├─ build.gradle.kts (Project)      shared plugin declarations
+├─ build.gradle.kts (Module :app)  SDK levels, version, dependencies
+├─ settings.gradle.kts             project name, modules, repositories
+├─ libs.versions.toml              version catalog
+├─ gradle.properties               Gradle JVM options
+├─ gradle-wrapper.properties       Gradle version
+├─ local.properties                local SDK path — not committed
+└─ proguard-rules.pro              R8 rules (unused for now)
+```
+
+For a Spring developer:
+
+| Android | Spring |
+|---|---|
+| `kotlin+java/` | `src/main/java` |
+| `res/` | `src/main/resources` |
+| `AndroidManifest.xml` | app configuration (like the old `web.xml`) |
+| `build.gradle.kts (Module)` | module `pom.xml` |
+| `libs.versions.toml` | parent pom's `dependencyManagement` |
+
+**Android** for daily work, **Project** when the real path matters — `.gitignore`, root
+files, `build/`. **Packages** is rarely useful.
+
+## IDE settings
+
+A few things worth changing on a modest laptop:
+
+| What | Where |
+|---|---|
+| UI font (menus, project tree) | Settings → Appearance & Behavior → Appearance → Use custom font |
+| Whole-IDE zoom | same screen → Zoom, or View → Appearance → Zoom IDE |
+| Parameter name hints (`value =`, `contract =`) | Settings → Editor → Inlay Hints → Kotlin → Parameter names |
+| Documentation popup font | ⋮ in the popup → Adjust Font Size |
+| Documentation popup on hover | Settings → Editor → Code Editing → Quick Documentation → Show on mouse move (Ctrl+Q still works) |
+
+Android Studio also flagged that Microsoft Defender's real-time scanning slows builds, and
+offers *Exclude folders* for the project and Gradle caches.
+
+### Terminal
+
+PowerShell in the IDE terminal showed command arguments on a black background. Android
+Studio eventually explained it on startup: PSReadLine 2.0.0 is outdated.
+
+```powershell
+Install-Module PSReadLine -MinimumVersion 2.0.3 -Scope CurrentUser -Force
+```
+
+Answer `Y` to the NuGet provider prompt and `A` to the PSGallery prompt, then open a new
+terminal tab — the old tab keeps the old module loaded. The black background was gone, and
+profile load time dropped from 21,146 ms to 3,782 ms.
+
+Git Bash is still the default here. Guides, documentation and my own blog posts use bash
+syntax, and the same commands work on a Linux server or a Mac:
+
+```text
+Settings → Tools → Terminal → Shell path
+C:\Program Files\Git\bin\bash.exe
+```
+
+## Bluetooth permission
+
+Since Android 12, connecting to a Bluetooth device requires a runtime permission. Two parts:
+declare it in the manifest, then ask the user.
+
+Forter will connect to the adapter by its MAC address with no discovery, so
+`BLUETOOTH_CONNECT` is enough. `BLUETOOTH_SCAN` is not needed.
+
+`AndroidManifest.xml`, above `<application>`:
+
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+```
+
+`MainActivity.kt`:
+
+```kotlin
+@Composable
+fun PermissionScreen(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    var granted by remember {
+        mutableStateOf(
+            ContextCompat.checkSelfPermission(
+                context, Manifest.permission.BLUETOOTH_CONNECT
+            ) == PackageManager.PERMISSION_GRANTED
+        )
+    }
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { result -> granted = result }
+
+    Column(modifier) {
+        Text("Hello Forter!\nv${BuildConfig.VERSION_NAME}")
+        Text(if (granted) "블루투스 권한: 허용됨" else "블루투스 권한: 없음")
+        if (!granted) {
+            Button(onClick = {
+                launcher.launch(Manifest.permission.BLUETOOTH_CONNECT)
+            }) {
+                Text("권한 요청")
+            }
+        }
+    }
+}
+```
+
+`setContent` calls `PermissionScreen(modifier = Modifier.padding(innerPadding))` in place of
+the template's `Greeting`.
+
+### Three classes named Manifest
+
+`Unresolved reference 'permission'` on `Manifest.permission.BLUETOOTH_CONNECT` means the
+wrong `Manifest` is in scope. There are three:
+
+| Class | What it is |
+|---|---|
+| `android.Manifest` | Android's permission constants — the right one |
+| `java.util.jar.Manifest` | JAR file metadata. Alt+Enter offered it first |
+| `com.iyabong.forter.Manifest` | Generated for the app. Same package, so it wins with no import |
+
+An explicit `import android.Manifest` beats the same-package class.
+
+The other import that trips people up: `var granted by remember { }` needs
+`androidx.compose.runtime.getValue` and `setValue`. Without them `by` shows a red underline,
+and Alt+Enter does not always offer the fix.
+
+Typing the code by hand instead of pasting it is what surfaced all of this — two typos
+(`BLUTOOTH`, `launncher`) and the wrong import. Pasted code would have compiled, and I would
+not have learned that three `Manifest` classes exist.
+
+### Result
+
+```text
+Hello Forter!
+v0.1.0-7a6e0e9
+블루투스 권한: 없음
+[ 권한 요청 ]
+```
+
+The system dialog reads *Allow Forter to find, connect to, and determine the relative
+position of nearby devices?* That sentence describes the whole Nearby devices group. The app
+only receives what the manifest declares — `BLUETOOTH_CONNECT`.
+
+After **Allow**, the button disappears and the status reads `허용됨`. On later launches it
+shows `허용됨` immediately.
+
+To test again: long-press the app icon → App info → Permissions → Nearby devices → Don't allow.
+
+## Default branch
+
+All work happens on `dev`, so it is now the GitHub default branch: Settings → General →
+Default branch → ⇄ → `dev` → Update.
+
+- The repository page opens on `dev` instead of the old code on `main`
+- A fresh clone checks out `dev`
+- Pull requests target `dev` by default
+
+`main` still holds the prototype. It stays for now as a future home for stable releases.
+Nothing is lost if it goes — the same code is on `archive/prototype-v0`.
 
 ## Next
 
-- Switch the GitHub default branch to `dev`
-- Request Bluetooth permissions and connect to the adapter's saved MAC address, without a
-  scan screen
+- List bonded devices on screen — `BLUETOOTH_CONNECT` is enough to read them, no scan —
+  and find the adapter's name and MAC address
+- Connect to that address over RFCOMM
 - Put the connection and polling loop inside a Foreground Service from the start
