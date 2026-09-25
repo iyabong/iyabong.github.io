@@ -11,8 +11,7 @@ tags: [android, android-studio, git, gradle, bluetooth]
 
 It has been months since I started Forter, and I had lost track of the old code and how it
 flowed. Rather than re-reading it piece by piece, I decided to start from an empty project
-and rebuild it by hand — understanding the structure as I go. Not because the old code was
-wrong, but to make it mine again.
+and rebuild it by hand — understanding the structure as I go to make it mine again.
 
 ## Archive the prototype
 
