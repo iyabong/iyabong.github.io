@@ -7,6 +7,8 @@ tags: [android, python, elm327, obd2, bluetooth, serial]
 
 > This post was compiled by Claude.
 
+[https://en.wikipedia.org/wiki/OBD-II_PIDs](https://en.wikipedia.org/wiki/OBD-II_PIDs)
+
 ## 보완할 점
 
 1. `withTimeout`의 `TimeoutCancellationException`은 `CancellationException` 하위 클래스
@@ -27,12 +29,12 @@ tags: [android, python, elm327, obd2, bluetooth, serial]
 
 ## 옵션 선택
 
-| # | 방법 | 장점 | 단점 |
-|---|---|---|---|
-| 1 | Python 패키지 `ELM327-emulator` | 바로 사용 | 오류 상황 연출 어려움 |
-| 2 | 앱 내부 `FakeConnection` | 블루투스 설정 불필요 | 앱 코드에 테스트 분기 |
-| 3 | 하드웨어 ECU 시뮬레이터 | 실차와 동일 | 10만 원 이상 |
-| 4 | **직접 작성한 Python 에뮬레이터** | 상황 연출 자유, 앱 코드 무변경 | Windows 블루투스 설정 필요 |
+| #   | 방법                              | 장점                           | 단점                       |
+| --- | --------------------------------- | ------------------------------ | -------------------------- |
+| 1   | Python 패키지 `ELM327-emulator`   | 바로 사용                      | 오류 상황 연출 어려움      |
+| 2   | 앱 내부 `FakeConnection`          | 블루투스 설정 불필요           | 앱 코드에 테스트 분기      |
+| 3   | 하드웨어 ECU 시뮬레이터           | 실차와 동일                    | 10만 원 이상               |
+| 4   | **직접 작성한 Python 에뮬레이터** | 상황 연출 자유, 앱 코드 무변경 | Windows 블루투스 설정 필요 |
 
 - 4번 선택
 - 업무에서 Python exe를 다룰 예정이라 Python 학습 겸용
@@ -60,11 +62,11 @@ tags: [android, python, elm327, obd2, bluetooth, serial]
 
 ### 010C의 계층
 
-| 층 | 정의 주체 | 역할 | 웹 비유 |
-|---|---|---|---|
-| OBD-II | SAE J1979 | `01` 현재 데이터, `0C` RPM | API 명세 |
-| ELM327 텍스트 프로토콜 | ELM Electronics | 16진수를 문자로 송수신, `\r` 종료, `>` 프롬프트, AT 명령 | HTTP |
-| RS-232 / RFCOMM | 통신 규격 | 바이트 운반 | TCP |
+| 층                     | 정의 주체       | 역할                                                     | 웹 비유  |
+| ---------------------- | --------------- | -------------------------------------------------------- | -------- |
+| OBD-II                 | SAE J1979       | `01` 현재 데이터, `0C` RPM                               | API 명세 |
+| ELM327 텍스트 프로토콜 | ELM Electronics | 16진수를 문자로 송수신, `\r` 종료, `>` 프롬프트, AT 명령 | HTTP     |
+| RS-232 / RFCOMM        | 통신 규격       | 바이트 운반                                              | TCP      |
 
 ### 응답 `410C1AF8` 해석
 
@@ -98,11 +100,11 @@ pip install pyserial      # 설치 이름 pyserial, import 이름 serial
 3. 갤럭시는 블루투스 설정 화면을 연 동안에만 검색 가능
 4. 페어링 후 `S25 Ultra` 항목 3개, 모두 같은 폰
 
-| 항목 | 의미 |
-|---|---|
-| 전화기 아이콘, 페어링됨 | 클래식 블루투스 (SPP 사용) |
-| USB 3.0 문구 | USB 케이블 연결 |
-| 페어링됨 (처음엔 `Bluetooth LE Device ...`) | BLE |
+| 항목                                        | 의미                       |
+| ------------------------------------------- | -------------------------- |
+| 전화기 아이콘, 페어링됨                     | 클래식 블루투스 (SPP 사용) |
+| USB 3.0 문구                                | USB 케이블 연결            |
+| 페어링됨 (처음엔 `Bluetooth LE Device ...`) | BLE                        |
 
 - PowerShell `InstanceId` 접두사로 구분: `BTHENUM` 클래식, `BTHLE` BLE, `USB`
 
@@ -126,14 +128,14 @@ forter/
         └── requirements.txt
 ```
 
-| 대상 | 선택 | 근거 |
-|---|---|---|
-| 상위 폴더 | `tools/` | 독립 실행 도구. 앱이 import하는 헬퍼는 소스 내 `util` 패키지 |
-| 단수/복수 | `tools` | 저장소 최상위 폴더는 복수형, Java/Kotlin 패키지는 단수형 |
-| 폴더명 | `elm327-emulator` | kebab-case, 전부 소문자 (Windows/Linux 대소문자 차이 회피) |
-| 약어 | `emulator` | `emu`는 뜻이 바로 안 읽힘 |
-| 실행 파일 | `main.py` | 폴더명과 중복 회피, Go의 `main.go`와 같은 관례 |
-| 의존성 파일 | `requirements.txt` | 고정 이름, Dependabot과 편집기가 인식 |
+| 대상        | 선택               | 근거                                                         |
+| ----------- | ------------------ | ------------------------------------------------------------ |
+| 상위 폴더   | `tools/`           | 독립 실행 도구. 앱이 import하는 헬퍼는 소스 내 `util` 패키지 |
+| 단수/복수   | `tools`            | 저장소 최상위 폴더는 복수형, Java/Kotlin 패키지는 단수형     |
+| 폴더명      | `elm327-emulator`  | kebab-case, 전부 소문자 (Windows/Linux 대소문자 차이 회피)   |
+| 약어        | `emulator`         | `emu`는 뜻이 바로 안 읽힘                                    |
+| 실행 파일   | `main.py`          | 폴더명과 중복 회피, Go의 `main.go`와 같은 관례               |
+| 의존성 파일 | `requirements.txt` | 고정 이름, Dependabot과 편집기가 인식                        |
 
 ## 코드
 
@@ -166,12 +168,12 @@ while True:
 
 ## 문제 해결
 
-| # | 증상 | 원인 | 해결 |
-|---|---|---|---|
-| 1 | `can't find '__main__' module` | 폴더를 실행 | `main.py` 직접 지정 (폴더 실행은 `__main__.py` 필요) |
-| 2 | `SyntaxError` at `buf = b ""` | `b`와 따옴표 사이 공백 | `b""` |
-| 3 | 수정 후 같은 에러 | 미저장 (`dir`의 시간·크기 변화 없음) | 저장 후 재실행 |
-| 4 | 출력 멈춤 | 명령 프롬프트 선택 모드 | Esc |
+| #   | 증상                           | 원인                                 | 해결                                                 |
+| --- | ------------------------------ | ------------------------------------ | ---------------------------------------------------- |
+| 1   | `can't find '__main__' module` | 폴더를 실행                          | `main.py` 직접 지정 (폴더 실행은 `__main__.py` 필요) |
+| 2   | `SyntaxError` at `buf = b ""`  | `b`와 따옴표 사이 공백               | `b""`                                                |
+| 3   | 수정 후 같은 에러              | 미저장 (`dir`의 시간·크기 변화 없음) | 저장 후 재실행                                       |
+| 4   | 출력 멈춤                      | 명령 프롬프트 선택 모드              | Esc                                                  |
 
 ## 결과
 

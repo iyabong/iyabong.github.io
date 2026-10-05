@@ -7,6 +7,8 @@ tags: [android, python, elm327, obd2, bluetooth, serial]
 
 > This post was compiled by Claude.
 
+[https://en.wikipedia.org/wiki/OBD-II_PIDs](https://en.wikipedia.org/wiki/OBD-II_PIDs)
+
 ## 보완할 점
 
 1. 에뮬레이터가 명령을 받기만 하고 응답 없음
@@ -36,12 +38,12 @@ RESPONSE: 41 0C 0A E0
           └ 01 + 0x40
 ```
 
-| 바이트 | 값 | 의미 |
-|---|---|---|
-| `41` | 서비스 `01` + `0x40` | 정상 응답 |
-| `0C` | PID | 요청한 PID 그대로 (RPM) |
-| `0A` | A = 10 | 데이터 첫 바이트 |
-| `E0` | B = 224 | 데이터 둘째 바이트 |
+| 바이트 | 값                   | 의미                    |
+| ------ | -------------------- | ----------------------- |
+| `41`   | 서비스 `01` + `0x40` | 정상 응답               |
+| `0C`   | PID                  | 요청한 PID 그대로 (RPM) |
+| `0A`   | A = 10               | 데이터 첫 바이트        |
+| `E0`   | B = 224              | 데이터 둘째 바이트      |
 
 1. `0x40` = `0100 0000`, 비트 하나만 켜서 "이건 응답" 표시
    - 같은 버스에 요청과 응답이 섞이므로 첫 바이트로 구분
@@ -75,21 +77,21 @@ RESPONSE: 41 0C 0A E0
    - MAF의 `/ 100`도 같은 원리 (0.01 g/s 단위)
 4. 256은 고정, 바이트 수에 따라 거듭제곱만 달라짐
 
-| 바이트 수 | 공식 | 예 |
-|---|---|---|
-| 1 | A | 속도 `0D` |
-| 2 | 256A + B | RPM `0C`, MAF `10` |
-| 4 | 256³A + 256²B + 256C + D | 주행거리 `A6` (2012년식 지원 여부 미확인) |
+| 바이트 수 | 공식                     | 예                                        |
+| --------- | ------------------------ | ----------------------------------------- |
+| 1         | A                        | 속도 `0D`                                 |
+| 2         | 256A + B                 | RPM `0C`, MAF `10`                        |
+| 4         | 256³A + 256²B + 256C + D | 주행거리 `A6` (2012년식 지원 여부 미확인) |
 
 - 예외: 산소 센서(`14`~`1B`)는 A, B가 서로 다른 값, 일부 PID는 부호 있는 값
 
 ### 정의 위치
 
-| 문서 | 다루는 것 | 비고 |
-|---|---|---|
-| SAE J1979 / ISO 15031-5 | 서비스, PID, 공식 원본 | 유료 |
-| Wikipedia "OBD-II PIDs" | Services 표, Service 01 PID 표, A·B 공식 | 실무 참고서 |
-| ELM327 데이터시트 | AT 명령, 문자 송수신, `>` 프롬프트, 오류 메시지 | 값의 의미는 거의 없음 |
+| 문서                    | 다루는 것                                       | 비고                  |
+| ----------------------- | ----------------------------------------------- | --------------------- |
+| SAE J1979 / ISO 15031-5 | 서비스, PID, 공식 원본                          | 유료                  |
+| Wikipedia "OBD-II PIDs" | Services 표, Service 01 PID 표, A·B 공식        | 실무 참고서           |
+| ELM327 데이터시트       | AT 명령, 문자 송수신, `>` 프롬프트, 오류 메시지 | 값의 의미는 거의 없음 |
 
 - `010C` 해석: 앞 두 글자로 Services 표, 뒤 두 글자로 PID 표 조회
 
@@ -203,12 +205,12 @@ CMD(HEX)  RESPONSE(HEX)  DATA(DEC)         MEANING
 
 ### 결정 사항
 
-| 대상 | 선택 | 근거 |
-|---|---|---|
-| 확인 옵션 | `--test` → `--pids` | 하는 일(PID 목록 출력)이 드러나는 이름 |
-| 폴더명 | `elm327-emulator` 유지 | `elm327`만으로는 앱 `obd/Elm327.kt`와 혼동, `emu`는 표준 약어지만 폴더는 풀어 씀 |
-| 에뮬레이터 버전 | 붙이지 않음 | 같은 저장소의 개발 도구, git 이력이 버전 역할 |
-| `import serial` | 맨 위 | 노트북에 pyserial 설치됨, 함수 안 import 불필요 |
+| 대상            | 선택                   | 근거                                                                             |
+| --------------- | ---------------------- | -------------------------------------------------------------------------------- |
+| 확인 옵션       | `--test` → `--pids`    | 하는 일(PID 목록 출력)이 드러나는 이름                                           |
+| 폴더명          | `elm327-emulator` 유지 | `elm327`만으로는 앱 `obd/Elm327.kt`와 혼동, `emu`는 표준 약어지만 폴더는 풀어 씀 |
+| 에뮬레이터 버전 | 붙이지 않음            | 같은 저장소의 개발 도구, git 이력이 버전 역할                                    |
+| `import serial` | 맨 위                  | 노트북에 pyserial 설치됨, 함수 안 import 불필요                                  |
 
 - emulator vs simulator: 상대가 진짜와 구분 못 하게 프로토콜을 흉내 내면 emulator, 내부 동작을 모델링하면 simulator → 현재는 emulator
 
@@ -228,33 +230,33 @@ status += "0100: $supported\nRPM: $rpm\n속도: $speed km/h"
 - HTTP 요청이 아닌, SPP 선으로 `명령 + \r` 바이트 전송 (`SppConnection.send()`)
 - `main.py`는 요청마다 호출되는 게 아니라 COM4를 계속 읽는 루프
 
-| 순서 | 보냄 | 위치 |
-|---|---|---|
-| 1 | `ATZ` | `Elm327.init()` |
-| 2~6 | `ATE0` `ATL0` `ATS0` `ATH0` `ATSP0` | `Elm327.init()` |
-| 7 | `0100` | `MainActivity` |
-| 8 | `010C` | `Elm327.rpm()` |
-| 9 | `010D` | `Elm327.speed()` |
+| 순서 | 보냄                                | 위치             |
+| ---- | ----------------------------------- | ---------------- |
+| 1    | `ATZ`                               | `Elm327.init()`  |
+| 2~6  | `ATE0` `ATL0` `ATS0` `ATH0` `ATSP0` | `Elm327.init()`  |
+| 7    | `0100`                              | `MainActivity`   |
+| 8    | `010C`                              | `Elm327.rpm()`   |
+| 9    | `010D`                              | `Elm327.speed()` |
 
-| 앱 (Kotlin) | 에뮬레이터 (Python) |
-|---|---|
+| 앱 (Kotlin)           | 에뮬레이터 (Python)               |
+| --------------------- | --------------------------------- |
 | `write("$command\r")` | `if data == b"\r":`에서 명령 완성 |
-| `if (c == '>') break` | `port.write(f"{resp}\r\r>")` |
+| `if (c == '>') break` | `port.write(f"{resp}\r\r>")`      |
 
 ## 문제 해결
 
-| # | 증상 | 원인 | 해결 |
-|---|---|---|---|
-| 1 | IDE가 Python 3.14.8 다운로드 제안 | 인터프리터 미등록 | 취소, `which python`으로 찾은 기존 3.14.3 등록 (새로 받으면 pyserial 없음) |
-| 2 | Python 안내줄 계속 표시 | 코드 인텔리전스 미설정 | Enable → LSP4IJ 플러그인 설치 → 재시작 |
-| 3 | `SyntaxError` | `min[...]`, 쉼표 누락, docstring 3칸 들여쓰기 | Python은 첫 오류에서 멈춤 → 하나씩 수정 |
-| 4 | `NameError`, `AttributeError` | `replay_for`, `unsupported_bitmap`, `itmes` 오타 | `Did you mean:` 힌트대로 수정 |
-| 5 | 터미널에 `{cmd}`가 글자 그대로 | `f`가 따옴표 안 (`"f받음..."`) | `f"받음..."` |
-| 6 | 표 열 어긋남 | 제목줄과 내용 줄 너비 숫자 불일치 | 세 줄 모두 같은 너비 |
-| 7 | 저장했는데 반영 안 됨 | 주석만 수정 | 코드 줄 수정 (Python은 실행마다 파일을 새로 읽음) |
-| 8 | `.idea/markdown.xml` 계속 Untracked | `.gitignore`에 `./idea/...` | `.idea/markdown.xml` |
-| 9 | `adb: command not found` | Git Bash PATH에 SDK 없음 | 전체 경로 또는 `~/.bashrc`에 `platform-tools` 추가 |
-| 10 | `adb pair` → `protocol fault` | 공용 Wi-Fi(172.16 대역) 방화벽 추정 | 미해결, USB로 빌드 |
+| #   | 증상                                | 원인                                             | 해결                                                                       |
+| --- | ----------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------- |
+| 1   | IDE가 Python 3.14.8 다운로드 제안   | 인터프리터 미등록                                | 취소, `which python`으로 찾은 기존 3.14.3 등록 (새로 받으면 pyserial 없음) |
+| 2   | Python 안내줄 계속 표시             | 코드 인텔리전스 미설정                           | Enable → LSP4IJ 플러그인 설치 → 재시작                                     |
+| 3   | `SyntaxError`                       | `min[...]`, 쉼표 누락, docstring 3칸 들여쓰기    | Python은 첫 오류에서 멈춤 → 하나씩 수정                                    |
+| 4   | `NameError`, `AttributeError`       | `replay_for`, `unsupported_bitmap`, `itmes` 오타 | `Did you mean:` 힌트대로 수정                                              |
+| 5   | 터미널에 `{cmd}`가 글자 그대로      | `f`가 따옴표 안 (`"f받음..."`)                   | `f"받음..."`                                                               |
+| 6   | 표 열 어긋남                        | 제목줄과 내용 줄 너비 숫자 불일치                | 세 줄 모두 같은 너비                                                       |
+| 7   | 저장했는데 반영 안 됨               | 주석만 수정                                      | 코드 줄 수정 (Python은 실행마다 파일을 새로 읽음)                          |
+| 8   | `.idea/markdown.xml` 계속 Untracked | `.gitignore`에 `./idea/...`                      | `.idea/markdown.xml`                                                       |
+| 9   | `adb: command not found`            | Git Bash PATH에 SDK 없음                         | 전체 경로 또는 `~/.bashrc`에 `platform-tools` 추가                         |
+| 10  | `adb pair` → `protocol fault`       | 공용 Wi-Fi(172.16 대역) 방화벽 추정              | 미해결, USB로 빌드                                                         |
 
 - Traceback 읽기: 맨 아래가 원인과 터진 위치, 위로 갈수록 호출한 쪽 (Java 스택 트레이스와 반대)
 - 10번 확인 내역: 코드를 인자로 전달(`adb pair IP:포트 코드`), adb 36.0.2 최신, `kill-server` 후 재시도 → 모두 동일 → 네트워크 외 원인 없음
